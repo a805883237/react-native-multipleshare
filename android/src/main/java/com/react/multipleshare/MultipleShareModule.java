@@ -68,7 +68,26 @@ public class MultipleShareModule extends ReactContextBaseJavaModule {
             return;
         }
 
-        ArrayList arrayList = shareArray.toArrayList();
+        // 老代码，需要替换，没有toArrayList方法 ArrayList arrayList = shareArray.toArrayList();
+        ArrayList<Object> arrayList = new ArrayList<>();
+            for (int i = 0; i < shareArray.size(); i++) {
+            switch (shareArray.getType(i)) {
+                case Null:
+                    arrayList.add(null);
+                    break;
+                case Boolean:
+                    arrayList.add(shareArray.getBoolean(i));
+                    break;
+                case Number:
+                    arrayList.add(shareArray.getDouble(i));
+                    break;
+                case String:
+                    arrayList.add(shareArray.getString(i));
+                    break;
+                default:
+                    throw new IllegalArgumentException("Could not convert object at index: " + i + ".");
+            }
+        }
         int index = 0;
 
         String filePrefix = Long.toString(new Date().getTime());
