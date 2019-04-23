@@ -194,6 +194,8 @@ public class MultipleShareModule extends ReactContextBaseJavaModule {
                                             array.valueAt(i).getName(), null));
                         } catch (FileNotFoundException e) {
                             e.printStackTrace();
+                        } catch (Exception e) {
+                            Log.d(TAG, "Error accessing file: " + e.getMessage());
                         }
                         imageUris.add(uri);
                     }
